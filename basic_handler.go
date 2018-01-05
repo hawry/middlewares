@@ -14,8 +14,8 @@ type basicAuth struct {
 	pass string
 }
 
-//BasicAuthenticationHandler extracts any Authorization info of type Basic.
-func BasicAuthenticationHandler(next http.Handler) http.Handler {
+//BasicAuthorizationHandler extracts any Authorization info of type Basic.
+func BasicAuthorizationHandler(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		hash, err := basicAuthHash(r.Header)
 		if err != nil {

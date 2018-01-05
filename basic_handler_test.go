@@ -86,7 +86,7 @@ func TestBasicAuthHandler(t *testing.T) {
 			assert.Equal(t, "shardware", p)
 		})
 		rr := httptest.NewRecorder()
-		h := BasicAuthenticationHandler(ctxHandler)
+		h := BasicAuthorizationHandler(ctxHandler)
 		h.ServeHTTP(rr, req)
 	})
 
@@ -103,7 +103,7 @@ func TestBasicAuthHandler(t *testing.T) {
 		SetOutput(&b)
 
 		rr := httptest.NewRecorder()
-		h := BasicAuthenticationHandler(ctxHandler)
+		h := BasicAuthorizationHandler(ctxHandler)
 		h.ServeHTTP(rr, req)
 
 		bs := string(b.Bytes())
@@ -123,7 +123,7 @@ func TestBasicAuthHandler(t *testing.T) {
 		SetOutput(&b)
 
 		rr := httptest.NewRecorder()
-		h := BasicAuthenticationHandler(ctxHandler)
+		h := BasicAuthorizationHandler(ctxHandler)
 		h.ServeHTTP(rr, req)
 
 		bs := string(b.Bytes())
@@ -143,11 +143,11 @@ func ExampleBasicCredentials() {
 	http.Handle("/", defaultHandler)
 }
 
-func ExampleBasicAuthenticationHandler() {
+func ExampleBasicAuthorizationHandler() {
 	defaultHandler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		// do something
 	})
 
-	http.Handle("/", BasicAuthenticationHandler(defaultHandler))
+	http.Handle("/", BasicAuthorizationHandler(defaultHandler))
 	http.ListenAndServe(":3000", nil)
 }
