@@ -2,9 +2,7 @@ package middlewares
 
 import (
 	"fmt"
-	"io"
 	"net/http"
-	"os"
 	"time"
 )
 
@@ -14,15 +12,9 @@ type loggingHandler struct {
 	contentLen int
 }
 
-var output io.Writer
-
 const (
 	timeFormat = "02/Jan/2006:15:04:05 -0700"
 )
-
-func init() {
-	output = os.Stdout
-}
 
 //LoggingHandler returns a http.Handler that wraps next, and prints requests and responses in Apache Combined Log Format.
 func LoggingHandler(next http.Handler) http.Handler {
@@ -31,11 +23,6 @@ func LoggingHandler(next http.Handler) http.Handler {
 		next.ServeHTTP(lw, r)
 		printLog(lw.statusCode, lw.contentLen, r)
 	})
-}
-
-//SetOutput sets which io.Writer to print the log to. Default is os.Stdout.
-func SetOutput(w io.Writer) {
-	output = w
 }
 
 func printLog(status, length int, r *http.Request) {
