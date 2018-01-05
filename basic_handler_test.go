@@ -130,3 +130,24 @@ func TestBasicAuthHandler(t *testing.T) {
 		assert.Contains(t, bs, "warn: ")
 	})
 }
+
+func ExampleBasicCredentials() {
+	defaultHandler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		user, pass, err := BasicCredentials(r.Context())
+		if err != nil {
+			// error handling
+		}
+		fmt.Printf("%s, %s", user, pass)
+	})
+	// ...
+	http.Handle("/", defaultHandler)
+}
+
+func ExampleBasicAuthenticationHandler() {
+	defaultHandler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		// do something
+	})
+
+	http.Handle("/", BasicAuthenticationHandler(defaultHandler))
+	http.ListenAndServe(":3000", nil)
+}
