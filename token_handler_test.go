@@ -83,7 +83,6 @@ func ExampleToken() {
 	})
 	// ...
 	http.Handle("/", defaultHandler)
-	// Output: 1/mZ1edKKACtPAb7zGlwSzvs72PvhAbGmB8K1ZrGxpcNM (example)
 }
 func ExampleTokenHandler() {
 	defaultHandler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
