@@ -1,4 +1,4 @@
-[![GoDoc](https://godoc.org/github.com/Hawry/middlewares?status.svg)](https://godoc.org/github.com/Hawry/middlewares)
+[![GoDoc](https://godoc.org/github.com/Hawry/middlewares?status.svg)](https://godoc.org/github.com/Hawry/middlewares) [![Build Status](https://travis-ci.org/Hawry/middlewares.svg?branch=master)](https://travis-ci.org/Hawry/middlewares)
 
 ## Install
 
