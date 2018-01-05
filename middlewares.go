@@ -21,6 +21,8 @@ func init() {
 }
 
 //SetOutput sets which io.Writer to print the log to. Default is os.Stdout.
+//
+// Setting an output will change the default output for ALL handlers in this package.
 func SetOutput(w io.Writer) {
 	output = w
 }

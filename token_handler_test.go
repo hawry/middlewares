@@ -72,3 +72,24 @@ func TestTokenHandler(t *testing.T) {
 		handler.ServeHTTP(rr, req)
 	})
 }
+
+func ExampleToken() {
+	defaultHandler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		token, err := Token(r.Context())
+		if err != nil {
+			// error handling
+		}
+		fmt.Printf("%s", token)
+	})
+	// ...
+	http.Handle("/", defaultHandler)
+	// Output: 1/mZ1edKKACtPAb7zGlwSzvs72PvhAbGmB8K1ZrGxpcNM (example)
+}
+func ExampleTokenHandler() {
+	defaultHandler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		// do something
+	})
+
+	http.Handle("/", TokenHandler(defaultHandler))
+	http.ListenAndServe(":3000", nil)
+}
