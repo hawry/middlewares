@@ -132,3 +132,17 @@ func TestSupportCredentials(t *testing.T) {
 	// assert.Equal(t, "Origin", rr.Header().Get(corsVary))
 	assert.Equal(t, "http://localhost", rr.Header().Get(corsAccessControlAllowOrigin))
 }
+
+func ExampleCORSHandler() {
+
+	AllowCORSOrigins("http://example.com")  //requests from http://example.com are allowed
+	AllowCORSMethods("GET", "POST", "HEAD") //requests with method GET, POST and HEAD are allowed
+	AllowCORSHeaders("X-Requested-With")    //the server will be able to handle the header X-Requested-With
+
+	corsHandler := CORSHandler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		// ... do something
+	}))
+
+	http.Handle("/", corsHandler)
+	http.ListenAndServe(":8080", nil)
+}

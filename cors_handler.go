@@ -58,7 +58,7 @@ func SupportCredentials(b bool) {
 	supportCredentials = b
 }
 
-//CORSHandler appends CORS headers to the response if any CORS headers are present in the request or as a preflight request
+//CORSHandler appends CORS headers to the response if any CORS headers are present in the request or as a preflight request. For detailed documentation regarding CORS and what headers mean, please see https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
 func CORSHandler(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		origin := r.Header.Get(corsOrigin)
