@@ -86,12 +86,14 @@ func CORSHandler(next http.Handler) http.Handler {
 			}
 		}
 
-		if supportCredentials {
-			w.Header().Set(corsAccessControlAllowCredentials, "true")
-		} else {
+		if allowAll() {
 			if allowAll() {
 				w.Header().Set(corsVary, "Origin") // tell the client the origin might be changing depending on who's asking
 			}
+		}
+
+		if supportCredentials {
+			w.Header().Set(corsAccessControlAllowCredentials, "true")
 		}
 		next.ServeHTTP(w, r)
 	})
