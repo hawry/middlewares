@@ -31,9 +31,9 @@ func Token(ctx context.Context) (token string, err error) {
 }
 
 func bearer(h http.Header) (token string, err error) {
-	auth := h.Get("Authentication")
+	auth := h.Get("Authorization")
 	if !strings.HasPrefix(auth, "Bearer ") {
-		return "", errors.New("no authentication header found")
+		return "", errors.New("no Authorization header found")
 	}
 	token = auth[7:] // The string 'Bearer' and a whitespace "Bearer "
 	if !(len(token) > 0) {

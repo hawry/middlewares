@@ -15,13 +15,13 @@ func TestExtractBearer(t *testing.T) {
 		t.Fatal(err)
 	}
 	raw := "thisisabearertokenthatshouldbefound"
-	req.Header.Add("Authentication", fmt.Sprintf("Bearer %s", raw))
+	req.Header.Add("Authorization", fmt.Sprintf("Bearer %s", raw))
 	tval, err := bearer(req.Header)
 	assert.Nil(t, err, "should be nil")
 	assert.Equal(t, raw, tval, "should be equal")
 
 	t.Run("Empty bearer", func(t *testing.T) {
-		req.Header.Set("Authentication", "Bearer ")
+		req.Header.Set("Authorization", "Bearer ")
 		tval, err := bearer(req.Header)
 		assert.NotNil(t, err, "should not be nil")
 		assert.Empty(t, tval, "should be empty")
@@ -29,11 +29,11 @@ func TestExtractBearer(t *testing.T) {
 	})
 
 	t.Run("Empty authentication", func(t *testing.T) {
-		req.Header.Del("Authentication")
+		req.Header.Del("Authorization")
 		tval, err := bearer(req.Header)
 		assert.NotNil(t, err, "should not be nil")
 		assert.Empty(t, tval, "should be empty")
-		assert.Equal(t, "no authentication header found", err.Error(), "should be equal")
+		assert.Equal(t, "no Authorization header found", err.Error(), "should be equal")
 	})
 }
 
@@ -44,7 +44,7 @@ func TestTokenHandler(t *testing.T) {
 	}
 
 	t.Run("Empty token", func(t *testing.T) {
-		req.Header.Set("Authentication", "Bearer")
+		req.Header.Set("Authorization", "Bearer")
 
 		ctxHandler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			token, err := Token(r.Context())
@@ -59,7 +59,7 @@ func TestTokenHandler(t *testing.T) {
 	})
 
 	t.Run("With token", func(t *testing.T) {
-		req.Header.Set("Authentication", "Bearer thisisatoken")
+		req.Header.Set("Authorization", "Bearer thisisatoken")
 
 		ctxHandler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			token, err := Token(r.Context())
