@@ -107,7 +107,7 @@ func TestBasicAuthHandler(t *testing.T) {
 		h.ServeHTTP(rr, req)
 
 		bs := string(b.Bytes())
-		assert.Equal(t, "warn: no basic authorization header found", bs)
+		assert.Equal(t, "warn: no basic authorization header found\n", bs)
 	})
 
 	t.Run("Invalid basic auth data", func(t *testing.T) {

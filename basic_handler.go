@@ -19,13 +19,13 @@ func BasicAuthorizationHandler(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		hash, err := basicAuthHash(r.Header)
 		if err != nil {
-			fmt.Fprintf(output, "warn: %s", err.Error())
+			fmt.Fprintf(output, "warn: %s\n", err.Error())
 			next.ServeHTTP(w, r)
 			return
 		}
 		plain, err := decodeBase64(hash)
 		if err != nil {
-			fmt.Fprintf(output, "warn: %s", err.Error())
+			fmt.Fprintf(output, "warn: %s\n", err.Error())
 			next.ServeHTTP(w, r)
 			return
 		}

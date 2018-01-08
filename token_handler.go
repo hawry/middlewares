@@ -13,7 +13,7 @@ func TokenHandler(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		token, err := bearer(r.Header)
 		if err != nil {
-			fmt.Fprintf(output, "warn: %s", err.Error())
+			fmt.Fprintf(output, "warn: %s\n", err.Error())
 			next.ServeHTTP(w, r)
 			return
 		}
